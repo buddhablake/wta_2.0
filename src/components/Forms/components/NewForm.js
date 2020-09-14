@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ResultsContext } from "../../../context/results";
+import { ThemesContext } from "../../../context/themes";
 import { getUser, postTheme } from "../../../api";
 import { v4 as uuidv4 } from "uuid";
 
 const NewForm = () => {
-  const { results, getResults } = useContext(ResultsContext);
+  const { getResults } = useContext(ResultsContext);
+  const { updateThemes } = useContext(ThemesContext);
   const [values, setValues] = useState();
   const [themeWords, setThemeWords] = useState([]);
 
@@ -16,20 +18,20 @@ const NewForm = () => {
 
   const buildThemeWordsArray = () => {
     const themeWord = document.querySelector("#themeWords");
-
     setThemeWords((themeWords) => [...themeWords, themeWord.value]);
-    console.log(themeWords);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newTheme = {
+      userId: getUser(),
+      themeId: uuidv4(),
+      themeName: values.themeName,
+      themeWords,
+    };
     try {
-      await postTheme({
-        userId: getUser(),
-        themeId: uuidv4(),
-        themeName: values.themeName,
-        themeWords,
-      });
+      await postTheme(newTheme);
+      updateThemes(newTheme);
       await getResults(values.url, themeWords);
       setValues(false);
       setThemeWords([]);

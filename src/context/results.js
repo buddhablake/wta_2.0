@@ -4,7 +4,7 @@ import axios from "axios";
 export const ResultsContext = createContext();
 
 export const ResultsProvider = (props) => {
-  const [results, setResults] = useState({ hello: "hello" });
+  const [results, setResults] = useState({});
 
   const getResults = async (url, words) => {
     const body = { url, words };

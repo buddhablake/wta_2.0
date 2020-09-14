@@ -1,20 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { CurrentThemeContext } from "../context/currentTheme";
+import { ThemesContext } from "../context/themes";
 import { getThemes, getUser } from "../api";
 
 const Themes = () => {
   const { populateEditForm } = useContext(CurrentThemeContext);
-
-  const [themes, setThemes] = useState();
+  const { themes, fetchUserThemes } = useContext(ThemesContext);
 
   useEffect(() => {
-    const getUserThemes = async () => {
-      const user = await getUser();
-      getThemes(user).then((res) => {
-        setThemes(res);
-      });
-    };
-    getUserThemes();
+    fetchUserThemes();
   }, []);
 
   return (

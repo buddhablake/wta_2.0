@@ -24,9 +24,12 @@ export const postTheme = async (themeObject) => {
   }
 };
 
-export const updateTheme = async (userId, themeId) => {
+export const updateTheme = async (userId, themeId, updatedTheme) => {
   try {
-    const res = await axios.get(`${baseUrl}/update/${userId}/${themeId}`);
+    const res = await axios.put(
+      `${baseUrl}/update/${userId}/${themeId}`,
+      updatedTheme
+    );
     return res.data;
   } catch (error) {
     //return an error

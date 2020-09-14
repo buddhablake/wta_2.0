@@ -5,7 +5,9 @@ import NewForm from "./components/NewForm";
 
 const Form = () => {
   const { currentTheme } = useContext(CurrentThemeContext);
-  return <>{currentTheme ? <EditForm /> : <NewForm />}</>;
+  return (
+    <>{currentTheme ? <EditForm currentTheme={currentTheme} /> : <NewForm />}</>
+  );
 };
 
 export default Form;
