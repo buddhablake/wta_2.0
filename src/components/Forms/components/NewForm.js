@@ -30,6 +30,7 @@ const NewForm = () => {
         themeName: values.themeName,
         themeWords,
       });
+      await getResults(values.url, themeWords);
       setValues(false);
       setThemeWords([]);
     } catch (error) {}
